@@ -13,19 +13,18 @@ The scanner is built in **C** and follows the Deterministic Finite Automaton (DF
 * **Operators**: `+`, `-`, `*`, `/`, `==`, `!=`, `<`, `>`, `<=`, `>=`, `&&`, `||`, `!`, `=`.
 * **Punctuation**: `;`, `(`, `)`, `{`, `}`.
 
-## Build and Run (Arch Linux)
-The project includes a `Makefile` for automated compilation using `gcc`.
+## Build and Run
+The project includes a `go.mod` for automated compilation 
 
 ### Prerequisites
-* GCC compiler
-* Make utility
+* Go 
 
 ### Instructions
 1. **Compile the program**:
    ```bash
-   make
+   go build -o elmo-scanner
    ```
 2. **Run the scanner (uses the sample.elmo file)**:
    ```bash
-   make clean
+   ./elmo-scanner sample.elmo
    ```

@@ -1,0 +1,23 @@
+int score;
+int level;
+
+score = 42;
+level = 1;
+
+if (score > 10) {
+    level = level + 1;
+    score = score * level;
+}
+
+int msg;
+msg = "level up!";
+
+while (level < 5) {
+    level = level + 1;
+    score = score + 100;
+}
+
+int bad;
+bad = score @ level;
+
+return score;

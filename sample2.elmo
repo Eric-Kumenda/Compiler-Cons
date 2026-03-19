@@ -1,0 +1,14 @@
+int i;
+int total;
+int limit;
+
+i = 0;
+total = 0;
+limit = 100;
+
+while (i < limit) {
+    total = total + i;
+    i = i + 1;
+}
+
+return total;
