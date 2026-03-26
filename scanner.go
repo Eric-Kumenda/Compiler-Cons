@@ -24,7 +24,7 @@ func NewScanner(source, filename string) *Scanner {
 }
 
 // Scan runs the scanner over the entire source and returns all tokens.
-// It implements the Elmo DFA directly: each call to nextToken() advances
+// It implements the MiniC DFA directly: each call to nextToken() advances
 // the scanner by one token using maximal munch.
 func (s *Scanner) Scan() []Token {
 	for !s.isAtEnd() {
@@ -83,7 +83,7 @@ func (s *Scanner) nextToken() {
 			s.emit(TOKEN_OPERATOR, "=")
 		}
 
-	// Single-character arithmetic/relational operators (DFA: D0 → D5)
+	// Single-character arithmetic operators (DFA: D0 → D5)
 	case c == '+':
 		s.emit(TOKEN_OPERATOR, "+")
 	case c == '-':
@@ -92,10 +92,24 @@ func (s *Scanner) nextToken() {
 		s.emit(TOKEN_OPERATOR, "*")
 	case c == '/':
 		s.emit(TOKEN_OPERATOR, "/")
+
+	// Relational operators — peek ahead for >= and <=
+	// DFA: D0 →'<'→ D5, then D5 →'='→ D10 (<=)
 	case c == '<':
-		s.emit(TOKEN_OPERATOR, "<")
+		if !s.isAtEnd() && s.peek() == '=' {
+			s.advance()
+			s.emit(TOKEN_OPERATOR, "<=")
+		} else {
+			s.emit(TOKEN_OPERATOR, "<")
+		}
+	// DFA: D0 →'>'→ D5, then D5 →'='→ D11 (>=)
 	case c == '>':
-		s.emit(TOKEN_OPERATOR, ">")
+		if !s.isAtEnd() && s.peek() == '=' {
+			s.advance()
+			s.emit(TOKEN_OPERATOR, ">=")
+		} else {
+			s.emit(TOKEN_OPERATOR, ">")
+		}
 
 	// ── Punctuation ─────────────────────────────────────────────
 	case c == '(':
