@@ -20,6 +20,7 @@ The project includes a `go.mod` for automated compilation
 * Go 
 
 ### Instructions
+**For Unix**
 1. **Compile the program**:
    ```bash
    go build -o elmo-scanner
@@ -28,3 +29,7 @@ The project includes a `go.mod` for automated compilation
    ```bash
    ./elmo-scanner sample.elmo
    ```
+ **For Windows**
+ 1. **Compile the program**
+   ```bash
+   
