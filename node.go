@@ -33,6 +33,17 @@ const (
 	NODE_EPSILON     NodeType = "ε"
 )
 
+// Short aliases and generic kinds exposed by the public AST module API.
+const (
+	NODE_DECL   = NODE_DECL_STMT
+	NODE_ASSIGN = NODE_ASSIGN_STMT
+	NODE_IF     = NODE_IF_STMT
+	NODE_WHILE  = NODE_WHILE_STMT
+	NODE_RETURN = NODE_RETURN_STMT
+
+	NODE_LITERAL NodeType = "literal"
+)
+
 // Node is a single node in the parse tree.
 // Value holds the lexeme for terminal nodes; Children holds sub-trees.
 type Node struct {
@@ -75,37 +86,36 @@ func newEpsilon() *Node {
 //	    │   └── punctuation  ';'
 //	    └── stmt_list  ε
 func (n *Node) Print() {
-	n.print("", true)
+	n.print("", true, true)
 }
 
-func (n *Node) print(prefix string, isLast bool) {
-	connector := "└── "
-	if !isLast {
-		connector = "├── "
-	}
-
+func (n *Node) print(prefix string, isRoot, isLast bool) {
 	label := string(n.Type)
 	if n.Value != "" {
 		label += fmt.Sprintf("  '%s'", n.Value)
 	}
 
-	if prefix == "" {
+	if isRoot {
 		fmt.Println(label)
 	} else {
+		connector := "└── "
+		if !isLast {
+			connector = "├── "
+		}
 		fmt.Println(prefix + connector + label)
 	}
 
-	childPrefix := prefix
-	if prefix == "" {
+	var childPrefix string
+	if isRoot {
 		childPrefix = ""
 	} else if isLast {
-		childPrefix += "    "
+		childPrefix = prefix + "    "
 	} else {
-		childPrefix += "│   "
+		childPrefix = prefix + "│   "
 	}
 
 	for i, child := range n.Children {
-		child.print(childPrefix, i == len(n.Children)-1)
+		child.print(childPrefix, false, i == len(n.Children)-1)
 	}
 }
 
@@ -121,4 +131,40 @@ func (n *Node) Summary() string {
 		}
 		return s
 	}(), ", "))
+}
+
+// ── Public module API ────────────────────────────────────────────────────────
+
+// NewNode creates a new parse tree node of the given type with an optional value.
+// Use an empty value for non-terminal (internal) nodes.
+func NewNode(nodeType string, value string) *Node {
+	return &Node{Type: NodeType(nodeType), Value: value}
+}
+
+// AddChild appends a child node to n. nil children are ignored.
+func (n *Node) AddChild(child *Node) {
+	if child == nil {
+		return
+	}
+	n.Children = append(n.Children, child)
+}
+
+// PrintTree recursively prints the parse tree using plain indentation.
+// level is the starting indentation depth (use 0 for the root).
+func (n *Node) PrintTree(level int) {
+	indent := strings.Repeat("  ", level)
+	label := string(n.Type)
+	if n.Value != "" {
+		label += fmt.Sprintf("  '%s'", n.Value)
+	}
+	fmt.Println(indent + label)
+	for _, child := range n.Children {
+		child.PrintTree(level + 1)
+	}
+}
+
+// PrettyPrint renders the tree with Unicode tree connectors.
+// Provided as a descriptive alias for Print.
+func (n *Node) PrettyPrint() {
+	n.Print()
 }
