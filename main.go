@@ -7,7 +7,7 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "Usage: elmo-scanner <source-file>")
+		fmt.Fprintln(os.Stderr, "Usage: elmo <source-file>")
 		os.Exit(1)
 	}
 
@@ -18,38 +18,23 @@ func main() {
 		os.Exit(1)
 	}
 
+	// ── Phase 1: scan ────────────────────────────────────────────
 	scanner := NewScanner(string(src), filename)
 	tokens := scanner.Scan()
 
-	printTokens(tokens)
-}
+	fmt.Println("══════════════════════════════════════════")
+	fmt.Println("  Elmo — scanning complete")
+	fmt.Printf("  %d tokens produced\n", len(tokens))
+	fmt.Println("══════════════════════════════════════════")
 
-func printTokens(tokens []Token) {
-	fmt.Println("══════════════════════════════════════════════════════════")
-	fmt.Printf("  Elmo Scanner — Token List\n")
-	fmt.Println("══════════════════════════════════════════════════════════")
-	fmt.Printf("  %-6s  %-14s  %-20s  %s\n", "LINE", "TYPE", "LEXEME", "VALUE")
-	fmt.Println("──────────────────────────────────────────────────────────")
+	// ── Phase 2: parse ───────────────────────────────────────────
+	parser := NewParser(tokens)
+	tree := parser.parseProgram()
 
-	hasError := false
-	for _, tok := range tokens {
-		if tok.Type == TOKEN_ERROR {
-			hasError = true
-		}
-		fmt.Printf("  %-6d  %-14s  %-20q  %s\n",
-			tok.Line,
-			tok.Type.String(),
-			tok.Lexeme,
-			tok.Value,
-		)
-	}
-
-	fmt.Println("══════════════════════════════════════════════════════════")
-	fmt.Printf("  Total tokens: %d\n", len(tokens))
-	if hasError {
-		fmt.Println("  ⚠  Lexical errors detected (see ERROR tokens above)")
-	} else {
-		fmt.Println("  ✓  Scan complete — no lexical errors")
-	}
-	fmt.Println("══════════════════════════════════════════════════════════")
+	fmt.Println("\n══════════════════════════════════════════")
+	fmt.Println("  Elmo — parse tree")
+	fmt.Println("══════════════════════════════════════════")
+	tree.Print()
+	fmt.Println("\n  Parse successful")
+	fmt.Println("══════════════════════════════════════════")
 }
