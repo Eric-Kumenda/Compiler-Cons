@@ -1,1 +1,34 @@
+# Binaries
+elmo-scanner
 elmo-parser
+
+# Go
+bin/
+obj/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+vendor/
+
+# Node.js (for the docx generator scripts)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Agent / Tooling Generated
+.agents/
+.gemini/
+
+# Note: Keeping the sample files (*.elmo), documentation (*.md, *.docx), and source code (*.go) tracked.
