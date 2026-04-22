@@ -4,9 +4,9 @@
 
 Left recursion was removed from `<expr>` and `<term>` by introducing
 `<expr_tail>` and `<term_tail>`. The `<else_part>` rule was factored out
-to keep the if/else production clean for LL(1).
+to keep the if/else production clean for recursive descent.
 
-## Transformed Grammar (LL(1)-ready BNF)
+## Transformed Grammar (Recursive Descent-ready BNF)
 
 ```
 <program>       ::= <stmt_list>
@@ -57,6 +57,5 @@ to keep the if/else production clean for LL(1).
                   | <=
                   | >=
 ```
-
 
 ---
