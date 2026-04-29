@@ -38,6 +38,16 @@ func main() {
 	}
 	fmt.Println(strings.Repeat("═", 42))
 
+	// --- ADD THIS SECTION START ---
+	fmt.Printf("%-15s | %-15s | %-5s\n", "TOKEN TYPE", "LEXEME", "LINE")
+	fmt.Println(strings.Repeat("-", 42))
+	for _, t := range tokens {
+		// String() method from token.go is used here for the Type
+		fmt.Printf("%-15s | %-15s | %-5d\n", t.Type.String(), t.Lexeme, t.Line)
+	}
+	fmt.Println(strings.Repeat("═", 42))
+	// --- ADD THIS SECTION END ---
+
 	// ── 3–4. Parse: tokens → parse tree ──────────────────────────
 	// Parse errors are reported and terminate the process from
 	// inside the parser's reportError / unexpectedToken helpers,
