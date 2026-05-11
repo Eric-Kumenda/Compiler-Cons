@@ -7,11 +7,7 @@ import (
 	"strings"
 )
 
-// main wires the Elmo compiler pipeline:
-//
-//	source file → scanner → tokens → parser → parse tree → print tree
 func main() {
-	// ── 1. Command-line arguments ────────────────────────────────
 	if len(os.Args) < 2 {
 		prog := filepath.Base(os.Args[0])
 		fmt.Fprintf(os.Stderr, "Usage: %s <source-file.elmo>\n", prog)
@@ -25,54 +21,50 @@ func main() {
 		os.Exit(1)
 	}
 
-	// ── 2. Scan: source → tokens ─────────────────────────────────
+	// Phase 1: Scan
 	scanner := NewScanner(string(src), filename)
 	tokens := scanner.Scan()
 	scanErrs := countScanErrors(tokens)
 
-	banner("Elmo — scanning complete")
+	banner("Elmo — Phase 1: Scanning")
 	fmt.Printf("  file    : %s\n", filename)
 	fmt.Printf("  tokens  : %d\n", len(tokens))
 	if scanErrs > 0 {
 		fmt.Printf("  warning : scanner flagged %d malformed token(s)\n", scanErrs)
 	}
-	fmt.Println(strings.Repeat("═", 42))
-
-	// --- ADD THIS SECTION START ---
-	fmt.Printf("%-15s | %-15s | %-5s\n", "TOKEN TYPE", "LEXEME", "LINE")
-	fmt.Println(strings.Repeat("-", 42))
+	fmt.Println(strings.Repeat("═", 50))
+	fmt.Printf("  %-15s  %-15s  %s\n", "TOKEN TYPE", "LEXEME", "LINE")
+	fmt.Println("  " + strings.Repeat("-", 40))
 	for _, t := range tokens {
-		// String() method from token.go is used here for the Type
-		fmt.Printf("%-15s | %-15s | %-5d\n", t.Type.String(), t.Lexeme, t.Line)
+		fmt.Printf("  %-15s  %-15s  %d\n", t.Type.String(), t.Lexeme, t.Line)
 	}
-	fmt.Println(strings.Repeat("═", 42))
-	// --- ADD THIS SECTION END ---
+	fmt.Println(strings.Repeat("═", 50))
 
-	// ── 3–4. Parse: tokens → parse tree ──────────────────────────
-	// Parse errors are reported and terminate the process from
-	// inside the parser's reportError / unexpectedToken helpers,
-	// so a successful return here means the input was accepted.
+	// Phase 2: Parse
 	parser := NewParser(tokens)
 	tree := parser.parseProgram()
-
-	// ── 5. Print the parse tree ──────────────────────────────────
 	fmt.Println()
-	banner("Elmo — parse tree")
+	banner("Elmo — Phase 2: Parse Tree")
 	tree.PrettyPrint()
+	fmt.Println(strings.Repeat("═", 50))
+
+	// Phase 3: ICG
 	fmt.Println()
-	banner("Parse successful")
+	banner("Elmo — Phase 3: Intermediate Code (Quadruples)")
+	icg := NewICG()
+	icg.Generate(tree)
+	icg.Print()
+	fmt.Println()
+	banner("Compilation complete")
 }
 
-// banner prints a double-lined section header.
 func banner(title string) {
-	bar := strings.Repeat("═", 42)
+	bar := strings.Repeat("═", 50)
 	fmt.Println(bar)
 	fmt.Printf("  %s\n", title)
 	fmt.Println(bar)
 }
 
-// countScanErrors counts TOKEN_ERROR entries produced by the scanner,
-// letting main surface lexical problems before parsing begins.
 func countScanErrors(tokens []Token) int {
 	n := 0
 	for _, t := range tokens {
