@@ -1,6 +1,3 @@
-int sum=10;
-sum = 5;
-if (sum <= 6)
-{
+while (x < x+y) {
     return sum * 5;
 }
