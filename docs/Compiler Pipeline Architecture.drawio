@@ -1,0 +1,42 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3">
+  <diagram name="Page-1" id="uYi0lbv8m8mG9CSFQwME">
+    <mxGraphModel dx="2526" dy="566" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2336" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="rtnvBl7-RFi_MVu25H2K-1" value="" style="group;shadow=0;" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="-1580" y="80" width="1005" height="378" as="geometry" />
+        </mxCell>
+        <mxCell id="h8G45JBQfCbVkJU9-lk0-21" value="Source Code:&#xa;sample.elmo" style="whiteSpace=wrap;strokeWidth=3;labelBackgroundColor=none;fillColor=#1E293B;fontColor=#FFFFFF;strokeColor=#0F172A;fontSize=17;rounded=1;glass=0;shadow=0;" parent="rtnvBl7-RFi_MVu25H2K-1" vertex="1">
+          <mxGeometry width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="h8G45JBQfCbVkJU9-lk0-22" value="Lexical Analyzer&#xa;Scanner" style="whiteSpace=wrap;strokeWidth=3;fillColor=#3B82F6;fontColor=#FFFFFF;strokeColor=#1D4ED8;fontSize=17;rounded=1;glass=0;shadow=0;" parent="rtnvBl7-RFi_MVu25H2K-1" vertex="1">
+          <mxGeometry x="440" y="50" width="249" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="h8G45JBQfCbVkJU9-lk0-23" value="Syntax Analyzer&#xa;Parser" style="whiteSpace=wrap;strokeWidth=3;fontColor=#FFFFFF;fillColor=#8B5CF6;strokeColor=#6D28D9;fontSize=17;rounded=1;glass=0;shadow=0;" parent="rtnvBl7-RFi_MVu25H2K-1" vertex="1">
+          <mxGeometry x="770" y="130" width="235" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="h8G45JBQfCbVkJU9-lk0-24" value="Intermediate Code&#xa;Generator" style="whiteSpace=wrap;strokeWidth=3;fontColor=#FFFFFF;fillColor=#10B981;strokeColor=#047857;fontSize=17;rounded=1;glass=0;shadow=0;" parent="rtnvBl7-RFi_MVu25H2K-1" vertex="1">
+          <mxGeometry x="570" y="250" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="h8G45JBQfCbVkJU9-lk0-25" value="Optimization /&#xa;Target Code Gen" style="whiteSpace=wrap;strokeWidth=3;fontColor=#FFFFFF;fillColor=#64748B;strokeColor=#475569;fontSize=17;rounded=1;glass=0;shadow=0;" parent="rtnvBl7-RFi_MVu25H2K-1" vertex="1">
+          <mxGeometry x="130" y="300" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="h8G45JBQfCbVkJU9-lk0-26" value="Character Stream" style="startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.5;rounded=1;labelBackgroundColor=default;convertToSvg=0;edgeStyle=orthogonalEdgeStyle;fontSize=13;fontFamily=Helvetica;shadow=0;" parent="rtnvBl7-RFi_MVu25H2K-1" source="h8G45JBQfCbVkJU9-lk0-21" target="h8G45JBQfCbVkJU9-lk0-22" edge="1">
+          <mxGeometry x="0.0045" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="h8G45JBQfCbVkJU9-lk0-27" value="Token Stream" style="startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0.5;entryY=0;rounded=1;edgeStyle=orthogonalEdgeStyle;labelBackgroundColor=default;fontSize=13;fontFamily=Helvetica;entryDx=0;entryDy=0;shadow=0;" parent="rtnvBl7-RFi_MVu25H2K-1" source="h8G45JBQfCbVkJU9-lk0-22" target="h8G45JBQfCbVkJU9-lk0-23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="h8G45JBQfCbVkJU9-lk0-28" value="Parse Tree / CST" style="startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=1;entryY=0.5;rounded=1;edgeStyle=orthogonalEdgeStyle;labelBackgroundColor=default;fontSize=13;fontFamily=Helvetica;exitDx=0;exitDy=0;entryDx=0;entryDy=0;shadow=0;" parent="rtnvBl7-RFi_MVu25H2K-1" source="h8G45JBQfCbVkJU9-lk0-23" target="h8G45JBQfCbVkJU9-lk0-24" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="h8G45JBQfCbVkJU9-lk0-29" value="Three-Address Code&#xa;Quadruples" style="startArrow=none;endArrow=block;exitX=0;exitY=0.5;entryX=1;entryY=0.5;rounded=1;edgeStyle=orthogonalEdgeStyle;labelBackgroundColor=default;fontSize=13;fontFamily=Helvetica;exitDx=0;exitDy=0;entryDx=0;entryDy=0;shadow=0;" parent="rtnvBl7-RFi_MVu25H2K-1" source="h8G45JBQfCbVkJU9-lk0-24" target="h8G45JBQfCbVkJU9-lk0-25" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
