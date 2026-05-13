@@ -30,5 +30,6 @@ yarn-error.log
 # Agent / Tooling Generated
 .agents/
 .gemini/
+.agent/
 
 # Note: Keeping the sample files (*.elmo), documentation (*.md, *.docx), and source code (*.go) tracked.
