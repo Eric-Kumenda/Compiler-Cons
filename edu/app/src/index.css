@@ -1,0 +1,85 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-heading: "Outfit", system-ui, -apple-system, sans-serif;
+  
+  /* Brand Colors in OKLCH - Balanced for both light/dark */
+  --color-primary: oklch(0.6 0.18 260); 
+  --color-success: oklch(0.65 0.18 150); 
+  --color-warning: oklch(0.75 0.15 80);  
+  --color-danger: oklch(0.6 0.2 25);     
+  --color-accent: oklch(0.65 0.2 300);   /* Purple/Pink */
+}
+
+/* Lenis Smooth Scroll requirements */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+body {
+  @apply antialiased text-slate-900 bg-slate-50 dark:text-slate-50 dark:bg-slate-950 transition-colors duration-300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Custom scrollbar for a more premium feel */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-transparent rounded-full transition-colors;
+}
+
+/* Show scrollbar thumb only on hover of the container */
+.custom-scrollbar:hover::-webkit-scrollbar-thumb,
+body:hover::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 dark:bg-slate-800;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-indigo-500/50;
+}
+
+/* Hide scrollbar for specific elements while maintaining scroll */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Decorative SVG Background Blobs */
+.bg-blob {
+  position: fixed;
+  filter: blur(80px);
+  z-index: -1;
+  opacity: 0.5;
+  pointer-events: none;
+}
